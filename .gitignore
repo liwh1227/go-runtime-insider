@@ -1,0 +1,67 @@
+# --- Go Binaries & Build Artifacts ---
+# 忽略编译生成的二进制文件文件夹
+/bin/
+# 忽略根目录或子目录下所有的 exe, dll, so, dylib 文件
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# --- Go Test Artifacts ---
+# go test -c 生成的测试二进制文件
+*.test
+
+# --- Go Output & Dependency ---
+# 如果你不打算提交 vendor 目录（推荐不提交，使用 go.mod）
+vendor/
+# Go Workspaces (本地开发常用的多模块配置，通常不提交)
+go.work
+go.work.sum
+
+# --- Runtime Experiment Data (Crucial for this project) ---
+# 实验产生的巨大的 trace 文件
+*.trace
+trace.out
+# pprof 生成的 profile 文件
+*.pprof
+cpu.out
+mem.out
+block.out
+mutex.out
+# 覆盖率报告
+coverage.txt
+coverage.out
+
+# --- C/C++ Artifacts (For Runtime Hacking) ---
+# 如果你编译了 C 代码或修改了 runtime 产生的中间文件
+*.o
+*.a
+*.obj
+
+# --- Editor & IDE Configs (Keep repo clean) ---
+# JetBrains (GoLand)
+.idea/
+*.iml
+# VS Code
+.vscode/
+# Vim/Emacs
+*.swp
+*~
+\#*#
+
+# --- OS Specific ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# --- Project Specific Experiments ---
+# 忽略所有实验目录下的临时二进制输出
+# 假设你的实验代码编译后叫 'main' 或 'experiment'
+01_scheduler/*/main
+02_memory/*/main
+03_structures/*/main
