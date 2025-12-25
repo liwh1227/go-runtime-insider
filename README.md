@@ -82,11 +82,11 @@
 go version
 
 # 克隆仓库
-git clone [https://github.com/yourname/go-runtime-insider.git](https://github.com/yourname/go-runtime-insider.git)
+git clone [https://github.com/liwh1227/go-runtime-insider.git](https://github.com/liwh1227/go-runtime-insider.git)
 cd go-runtime-insider
 ```
 
-# 👨‍💻 作者 (Author)
+## 👨‍💻 作者 (Author)
 Go Runtime Researcher & System Architect 专注于分布式系统架构与 Go 语言底层原理。致力于通过实验数据揭示软件系统的物理定律。
 
 <div id="en"></div>
@@ -156,7 +156,7 @@ We strictly follow the **"Observe - Hypothesize - Verify"** loop:
 go version
 
 # Clone Repo
-git clone [https://github.com/yourname/go-runtime-insider.git](https://github.com/yourname/go-runtime-insider.git)
+git clone [https://github.com/liwh1227/go-runtime-insider.git](https://github.com/liwh1227/go-runtime-insider.git)
 cd go-runtime-insider
 ```
 
