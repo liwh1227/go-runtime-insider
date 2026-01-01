@@ -1,0 +1,849 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://liwh1227.github.io/go-runtime-insider/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Go Runtime Insider</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#go-runtime-insider-the-comprehensive-verification-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Go Runtime Insider" class="md-header__button md-logo" aria-label="Go Runtime Insider" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Go Runtime Insider
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/liwh1227/go-runtime-insider" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    go-runtime-insider
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="01_scheduler/01_load_balance/README.md" class="md-tabs__link">
+          
+  
+  
+  Module 1: Scheduler
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="02_memory/01_allocator/README.md" class="md-tabs__link">
+          
+  
+  
+  Module 2: Memory
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Go Runtime Insider" class="md-nav__button md-logo" aria-label="Go Runtime Insider" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Go Runtime Insider
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/liwh1227/go-runtime-insider" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    go-runtime-insider
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1: Scheduler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 1: Scheduler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01_scheduler/01_load_balance/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Load Balance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01_scheduler/02_preemption/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Preemption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01_scheduler/03_stealing_hack/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Stealing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2: Memory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 2: Memory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02_memory/01_allocator/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Allocator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="go-runtime-insider-the-comprehensive-verification-lab">Go Runtime Insider: The Comprehensive Verification Lab</h1>
+<p><a href="https://golang.org/dl/"><img alt="Go Version" src="https://img.shields.io/badge/Go-1.14%2B-blue.svg" /></a>
+<a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg" /></a>
+<a href="https://github.com/liwh1227/go-runtime-insider"><img alt="Status" src="https://img.shields.io/badge/Status-Active_Research-orange.svg" /></a></p>
+<div align="center">
+  <a href="#cn">中文说明</a> | <a href="#en">English Readme</a>
+</div>
+
+<hr />
+<div id="cn"></div>
+
+<h1 id="go-runtime">Go Runtime 内核透视：确证驱动的深度实验室</h1>
+<blockquote>
+<p><strong>"Don't trust the docs, verify with data."</strong>
+<strong>"不迷信文档，只相信实证。"</strong></p>
+</blockquote>
+<h2 id="vision">📖 项目愿景 (Vision)</h2>
+<p><strong>Go Runtime Insider</strong> 是一个致力于解构 Go 语言运行时（Runtime）内部机制的实验性项目。大多数工程师停留在“背诵八股文”的阶段，而本项目旨在通过<strong>科学实验</strong>和<strong>数据观测</strong>，建立对 Runtime 行为的 <strong>确证能力 (Verification Capability)</strong>。</p>
+<p>本项目将 Go Runtime 视为一个待解剖的复杂系统，通过 <strong>黑盒遥测 (Telemetry)</strong>、<strong>灰盒可视化 (Visualization)</strong> 和 <strong>白盒源码注入 (Source Injection)</strong> 三种手段，深入探索以下核心领域：</p>
+<ol>
+<li><strong>调度器 (Scheduler)</strong>: GMP 模型、Work-stealing、异步抢占。</li>
+<li><strong>内存子系统 (Memory Subsystem)</strong>: TCMalloc 分配器、三色标记 GC、混合写屏障。</li>
+<li><strong>核心结构 (Core Structures)</strong>: Swiss Map (Go 1.24+)、Hashed Wheel Timer、Channel 内部机制。</li>
+</ol>
+<h2 id="modules">🔬 实验模块 (Modules)</h2>
+<p>本项目按 Runtime 核心组件划分为不同模块，每个模块包含若干个循序渐进的实验。</p>
+<h3 id="1-scheduling-gmp">1. 🧠 计算与调度 (Scheduling &amp; GMP)</h3>
+<blockquote>
+<p><em>深入理解 Goroutine 的生老病死与 CPU 资源的流转。</em></p>
+</blockquote>
+<ul>
+<li><strong>[EXP-01] 负载均衡验证</strong>:<ul>
+<li>利用 <code>GODEBUG=schedtrace=1000</code> 观测全局队列与本地队列的压力分布。</li>
+<li>区分 CPU 饱和与锁竞争导致的性能瓶颈。</li>
+</ul>
+</li>
+<li><strong>[EXP-02] 异步抢占可视化</strong>:<ul>
+<li>使用 <code>go tool trace</code> 捕捉死循环协程被 <code>SIGURG</code> 信号强制切分的微秒级证据 (Go 1.14+)。</li>
+</ul>
+</li>
+<li><strong>[EXP-03] 窃取路径追踪 (Runtime Hacking)</strong>:<ul>
+<li><strong>[Hardcore]</strong> 修改 <code>runtime/proc.go</code>，注入探针打印 Work-stealing 的精确拓扑（P1 偷了 P2），验证 CPU 亲和性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-memory-gc">2. 💾 内存与垃圾回收 (Memory &amp; GC)</h3>
+<blockquote>
+<p><em>透视对象在 Heap 上的分配路径与回收机制。</em></p>
+</blockquote>
+<ul>
+<li><strong>[EXP-04] 分配器行为确证</strong>:<ul>
+<li>验证 Tiny 对象 (&lt;16B) 与 Small 对象在 <code>mcache</code> 中的分配逻辑。</li>
+<li>使用 <code>go build -gcflags="-m"</code> 结合 Benchmark 验证逃逸分析对性能的影响。</li>
+</ul>
+</li>
+<li><strong>[EXP-05] GC Pacing 与压力测试</strong>:<ul>
+<li>通过 <code>GODEBUG=gctrace=1</code> 分析 <code>p</code> (Pacing ratio) 的变化。</li>
+<li>实测 <code>GOGC</code> 与 <code>GOMEMLIMIT</code> 在容器环境下的 OOM 防护效果。</li>
+</ul>
+</li>
+<li><strong>[EXP-06] 写屏障观测</strong>:<ul>
+<li><strong>[Hardcore]</strong> 深入混合写屏障 (Hybrid Write Barrier) 源码，验证对象颜色在并发标记阶段的流转。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-data-structures">3. 🏗️ 数据结构与并发 (Data Structures)</h3>
+<blockquote>
+<p><em>剖析 Go 核心数据结构的演进与设计权衡。</em></p>
+</blockquote>
+<ul>
+<li><strong>[EXP-07] Swiss Map 性能革命</strong>:<ul>
+<li>对比 Go 1.24 新版 Swiss Map 与旧版 Map 在高并发读写下的 CPU Cache Miss 率 (使用 <code>perf</code>)。</li>
+<li>验证 SIMD 指令加速探测的实际收益。</li>
+</ul>
+</li>
+<li><strong>[EXP-08] 定时器时间轮 (Timing Wheel)</strong>:<ul>
+<li>验证 Go 1.14+ 引入的 Netpoller 集成定时器如何消除原本的堆锁竞争。</li>
+</ul>
+</li>
+</ul>
+<h2 id="methodology">🛠️ 方法论 (Methodology)</h2>
+<p>本项目严格遵循 <strong>"观察-假设-验证"</strong> 的闭环：</p>
+<ol>
+<li><strong>Level 1: 黑盒 (Blackbox)</strong><ul>
+<li>不修改代码，仅通过环境变量 (<code>GODEBUG</code>) 和标准 Metrics 观测 Runtime 外部表现。</li>
+</ul>
+</li>
+<li><strong>Level 2: 灰盒 (Greybox)</strong><ul>
+<li>使用 Profiling 工具 (<code>pprof</code>, <code>trace</code>, <code>perf</code>) 查看函数调用栈和系统事件。</li>
+</ul>
+</li>
+<li><strong>Level 3: 白盒 (Whitebox)</strong><ul>
+<li>修改并重新编译 Go Runtime 源码，注入自定义日志和钩子，获取第一手内核数据。</li>
+</ul>
+</li>
+</ol>
+<h2 id="quick-start">🚀 快速开始 (Quick Start)</h2>
+<h3 id="_1">环境准备</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 推荐使用 Go 1.20+ (部分实验需要 Go 1.24RC)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>go<span class="w"> </span>version
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 克隆仓库</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>https://github.com/liwh1227/go-runtime-insider.git<span class="o">](</span>https://github.com/liwh1227/go-runtime-insider.git<span class="o">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">cd</span><span class="w"> </span>go-runtime-insider
+</code></pre></div>
+<h2 id="author">👨‍💻 作者 (Author)</h2>
+<p>Go Runtime Researcher &amp; System Architect 专注于分布式系统架构与 Go 语言底层原理。致力于通过实验数据揭示软件系统的物理定律。</p>
+<div id="en"></div>
+
+<h1 id="go-runtime-insider-the-comprehensive-verification-lab_1">Go Runtime Insider: The Comprehensive Verification Lab</h1>
+<p><strong>"Moving beyond theory to empirical evidence."</strong></p>
+<h2 id="vision_1">📖 Vision</h2>
+<p><strong>Go Runtime Insider</strong> is an experimental project dedicated to deconstructing the internal mechanics of the Go Runtime. While many engineers stop at memorizing concepts, this project aims to build <strong>Verification Capability</strong> through <strong>scientific experiments</strong> and <strong>empirical observation</strong>.</p>
+<p>We treat the Go Runtime as a complex system to be dissected using three methodologies: <strong>Blackbox Telemetry</strong>, <strong>Greybox Visualization</strong>, and <strong>Whitebox Source Injection</strong>, covering the following core areas:</p>
+<ol>
+<li><strong>Scheduler</strong>: GMP model, Work-stealing, Asynchronous Preemption.</li>
+<li><strong>Memory Subsystem</strong>: TCMalloc allocator, Tri-color GC, Hybrid Write Barrier.</li>
+<li><strong>Core Structures</strong>: Swiss Map (Go 1.24+), Hashed Wheel Timer, Channel internals.</li>
+</ol>
+<h2 id="modules_1">🔬 Modules</h2>
+<p>The project is organized into modules corresponding to Go Runtime components.</p>
+<h3 id="1-scheduling-gmp_1">1. 🧠 Scheduling &amp; GMP</h3>
+<p><em>Understanding the lifecycle of Goroutines and CPU resource flow.</em></p>
+<ul>
+<li><strong>[EXP-01] Load Balance Verification</strong>:<ul>
+<li>Observe pressure distribution on Global/Local queues using <code>GODEBUG=schedtrace=1000</code>.</li>
+<li>Distinguish between CPU saturation and lock contention.</li>
+</ul>
+</li>
+<li><strong>[EXP-02] Preemption Visualization</strong>:<ul>
+<li>Capture microsecond-level evidence of tight-loop goroutines being sliced by <code>SIGURG</code> signals using <code>go tool trace</code> (Go 1.14+).</li>
+</ul>
+</li>
+<li><strong>[EXP-03] Stealing Path Trace (Runtime Hacking)</strong>:<ul>
+<li><strong>[Hardcore]</strong> Modify <code>runtime/proc.go</code> to log the precise topology of Work-stealing, verifying CPU affinity.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-memory-gc_1">2. 💾 Memory &amp; GC</h3>
+<p><em>Visualizing object allocation paths and reclamation mechanics.</em></p>
+<ul>
+<li><strong>[EXP-04] Allocator Behavior</strong>:<ul>
+<li>Verify allocation logic for Tiny (&lt;16B) vs. Small objects in <code>mcache</code>.</li>
+<li>Benchmark the impact of Escape Analysis using <code>go build -gcflags="-m"</code>.</li>
+</ul>
+</li>
+<li><strong>[EXP-05] GC Pacing &amp; Stress Test</strong>:<ul>
+<li>Analyze <code>p</code> (Pacing ratio) dynamics via <code>GODEBUG=gctrace=1</code>.</li>
+<li>Test <code>GOGC</code> vs. <code>GOMEMLIMIT</code> protection in containerized environments.</li>
+</ul>
+</li>
+<li><strong>[EXP-06] Write Barrier Observation</strong>:<ul>
+<li><strong>[Hardcore]</strong> Dive into Hybrid Write Barrier source code to verify object coloring flows during concurrent marking.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-data-structures_1">3. 🏗️ Data Structures</h3>
+<p><em>Dissecting design trade-offs of core Go structures.</em></p>
+<ul>
+<li><strong>[EXP-07] Swiss Map Revolution</strong>:<ul>
+<li>Compare CPU Cache Miss rates of Go 1.24 Swiss Map vs. Old Map using <code>perf</code>.</li>
+<li>Verify the actual gains from SIMD probing.</li>
+</ul>
+</li>
+<li><strong>[EXP-08] Timing Wheel</strong>:<ul>
+<li>Verify how Netpoller-integrated timers (Go 1.14+) eliminate heap lock contention.</li>
+</ul>
+</li>
+</ul>
+<h2 id="methodology_1">🛠️ Methodology</h2>
+<p>We strictly follow the <strong>"Observe - Hypothesize - Verify"</strong> loop:</p>
+<ol>
+<li><strong>Level 1: Blackbox</strong><ul>
+<li>Observe external behavior using Env Vars (<code>GODEBUG</code>) and Metrics without code modification.</li>
+</ul>
+</li>
+<li><strong>Level 2: Greybox</strong><ul>
+<li>Inspect call stacks and system events using Profiling tools (<code>pprof</code>, <code>trace</code>, <code>perf</code>).</li>
+</ul>
+</li>
+<li><strong>Level 3: Whitebox</strong><ul>
+<li>Modify and recompile Go Runtime source code to inject custom logs and hooks for first-hand kernel data.</li>
+</ul>
+</li>
+</ol>
+<h2 id="quick-start_1">🚀 Quick Start</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># Go 1.20+ Recommended (Go 1.24RC for some experiments)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>go version
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a># Clone Repo
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>git clone [https://github.com/liwh1227/go-runtime-insider.git](https://github.com/liwh1227/go-runtime-insider.git)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>cd go-runtime-insider
+</code></pre></div>
+<h2 id="author_1">👨‍💻 Author</h2>
+<p><strong>Go Runtime Researcher &amp; System Architect</strong> Focusing on distributed system architecture and Go language internals. Dedicated to revealing the physical laws of software systems through empirical data.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
