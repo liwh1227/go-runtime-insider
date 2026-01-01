@@ -24,7 +24,12 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Home: README.md
+  # 修改点 1: 首页现在是 index.md
+  - Home: index.md
+
+  # 修改点 2: 其他路径其实不用变！
+  # 因为 MkDocs 会自动以 docs/ 为根目录查找文件。
+  # 比如 docs/01_scheduler/... 在这里只需要写 01_scheduler/...
   - 'Module 1: Scheduler':
       - '01 Load Balance': 01_scheduler/01_load_balance/README.md
       - '02 Preemption': 01_scheduler/02_preemption/README.md
